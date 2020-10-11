@@ -1,0 +1,9 @@
+.phpunit.result.cache
+
+/.idea
+.DS_Store
+/vendor
+
+/docs
+/samples
+phpapidoc.xml

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:annotation>
+        <xs:documentation source="">
+        </xs:documentation>
+    </xs:annotation>
+    <xs:element name="phpapidoc">
+        <xs:complexType>
+            <xs:attribute name="name" type="xs:string" />
+            <xs:attribute name="output" type="xs:string" />
+            <xs:attribute name="json" type="xs:string" />
+            <xs:attribute name="html" type="xs:string" />
+            <xs:element name="apipath">
+                <xs:complexType>
+                    <xs:element name="directory" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+                        <xs:complexType>
+                            <xs:attribute name="prefix"/>
+                        </xs:complexType>
+                        <xs:complexType>
+                            <xs:attribute name="suffix"/>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:element name="file" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+                    <xs:element name="exclude" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="fields">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="header" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+                            <xs:complexType>
+                                <xs:attribute name="type" type="xs:string" use="required"/>
+                                <xs:attribute name="description" type="xs:string" use="required"/>
+                                <xs:attribute name="sample" type="xs:string" use="required"/>
+                                <xs:attribute name="required" use="required"/>
+                            </xs:complexType>
+                        </xs:element>
+                        <xs:element name="param" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+                            <xs:complexType>
+                                <xs:attribute name="type" type="xs:string" use="required"/>
+                                <xs:attribute name="description" type="xs:string" use="required"/>
+                                <xs:attribute name="sample" type="xs:string" use="required"/>
+                                <xs:attribute name="required" use="required"/>
+                            </xs:complexType>
+                        </xs:element>
+                        <xs:element name="response" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+                            <xs:complexType>
+                                <xs:attribute name="type" type="xs:string" use="required"/>
+                                <xs:attribute name="description" type="xs:string" use="required"/>
+                                <xs:attribute name="sample" type="xs:string" use="required"/>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>
