@@ -1,6 +1,6 @@
 {
   "name": "phpapidoc/phpapidoc",
-  "description": "An easy to use API documentation generator.",
+  "description": "PhpApiDoc creates a documentation from API descriptions in your source code.",
   "type": "library",
   "require": {
     "php": ">=5.6",

@@ -22,7 +22,7 @@ final class Loader
         $filename = $this->toAbsolutePath(getcwd(), $filename);
 
         if (!file_exists($filename)) {
-            throw new \Exception('Config file not exist: ' . $filename);
+            throw new \Exception('Config file does not exist: ' . $filename);
         }
 
         $document = new DOMDocument();

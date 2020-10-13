@@ -18,23 +18,27 @@ class Command
 
     public function run($exit = true)
     {
-        $start = microtime(true);
-        $arguments = $this->handleArguments();
+        try {
+            $start = microtime(true);
+            $arguments = $this->handleArguments();
 
-        $configuration = $this->loadConfiguration($arguments->getConfiguration());
+            $configuration = $this->loadConfiguration($arguments->getConfiguration());
 
-        $handler = new ApiDocHandler($configuration);
-        $handler->handle();
+            $handler = new ApiDocHandler($configuration);
+            $handler->handle();
 
-        $this->printVersionString();
+            $this->printVersionString();
 
-        print "配置文件：" . $configuration->getFilename() . PHP_EOL;
-        print "API文件数量：" . $handler->getFileCount() . PHP_EOL;
-        print "API数量：" . $handler->getApiCount() . PHP_EOL;
+            print "配置文件：" . $configuration->getFilename() . PHP_EOL;
+            print "API文件数量：" . $handler->getFileCount() . PHP_EOL;
+            print "API数量：" . $handler->getApiCount() . PHP_EOL;
 //        print "保存结果为 HTML:" . $handler->isHtml() . " JSON:" . $handler->isJson() . PHP_EOL;
 //        print "output:" . PHP_EOL;
 
-        return 1;
+            return 1;
+        } catch (\Exception $e) {
+            print $e->getMessage() . PHP_EOL;
+        }
     }
 
     public function handleArguments()
