@@ -35,12 +35,25 @@ class ParameterCollection
     {
         $parameters = $this->parameters;
         krsort($parameters);
+        // 根据 key 的 . 个数进行逆排序
+        uasort($parameters, function ($p1, $p2) {
+            $v1 = $p1->getDotCount();
+            $v2 = $p2->getDotCount();
+            if ($v1 == $v2) {
+                return 0;
+            }
+            return $v1 < $v2 ? 1 : -1;
+        });
+
+//        var_dump($parameters);
+//        exit();
 
         foreach ($parameters as $k => $parameter) {
             $parameter->sortChildren();
             $parameter->fixSample();
             foreach ($parameters as $kp => $parent) {
-                if ($parameter->setParent($parent)) {
+                if ($parameter->isParent($parent)) {
+                    $parameter->setParent($parent);
                     $parent->addChild($parameter);
                     unset($parameters[$k]);
                     $parameters[$kp] = $parent;
@@ -49,6 +62,9 @@ class ParameterCollection
         }
 
         ksort($parameters);
+
+//        var_dump($parameters);
+//        exit();
 
         $this->parameters = $parameters;
     }

@@ -50,6 +50,8 @@ class Parameter
      */
     private $required = true;
 
+    private $dotCount = 0;
+
     /**
      * @var array
      */
@@ -80,6 +82,7 @@ class Parameter
 
         $this->key = $key;
         $this->field = $key;
+        $this->dotCount = substr_count($key, self::DELIMITER);
     }
 
     private function setType($type)
@@ -103,6 +106,11 @@ class Parameter
         return $this->field;
     }
 
+    public function getDotCount()
+    {
+        return $this->dotCount;
+    }
+
     /**
      * @return bool
      */
@@ -120,19 +128,28 @@ class Parameter
     }
 
     /**
-     * @param Parameter $parameter
+     * @param Parameter $parent
+     * @return bool
      */
-    public function setParent($parameter)
+    public function isParent($parent)
     {
-        if (($parameter->isTypeArray() || $parameter->isTypeObject())
-            && 0 === strpos($this->getKey(), $parameter->getKey())
-            && Str::startsWith(substr($this->getKey(), strlen($parameter->getKey())), self::DELIMITER)
+        if (($parent->isTypeArray() || $parent->isTypeObject()) &&
+            0 === strpos($this->getKey(), $parent->getKey())
         ) {
-            $field = substr($this->getKey(), strlen($parameter->getKey()) + 1);
-            $this->field = $field;
-            return true;
+            $field = substr($this->getKey(), strlen($parent->getKey()) + 1);
+            return strlen($field) > 0 && substr_count($field, self::DELIMITER) == 0;
         }
         return false;
+    }
+
+    /**
+     * @param Parameter $parent
+     */
+    public function setParent($parent)
+    {
+        if ($this->isParent($parent)) {
+            $this->field = substr($this->getKey(), strlen($parent->getKey()) + 1);
+        }
     }
 
     /**
