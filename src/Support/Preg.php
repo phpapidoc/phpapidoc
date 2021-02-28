@@ -83,7 +83,7 @@ class Preg
         }
 
         return [
-            'required' => false !== stripos($arr[0], 'null'),
+            'required' => false === stripos($arr[0], 'null'),
             'type' => $arr[1],
             'field' => $arr[2],
             'description' => $arr[3],
