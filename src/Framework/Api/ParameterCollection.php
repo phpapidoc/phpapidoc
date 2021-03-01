@@ -45,9 +45,6 @@ class ParameterCollection
             return $v1 < $v2 ? 1 : -1;
         });
 
-//        var_dump($parameters);
-//        exit();
-
         foreach ($parameters as $k => $parameter) {
             $parameter->sortChildren();
             $parameter->fixSample();
@@ -62,9 +59,6 @@ class ParameterCollection
         }
 
         ksort($parameters);
-
-//        var_dump($parameters);
-//        exit();
 
         $this->parameters = $parameters;
     }

@@ -136,8 +136,9 @@ class Parameter
         if (($parent->isTypeArray() || $parent->isTypeObject()) &&
             0 === strpos($this->getKey(), $parent->getKey())
         ) {
-            $field = substr($this->getKey(), strlen($parent->getKey()) + 1);
-            return strlen($field) > 0 && substr_count($field, self::DELIMITER) == 0;
+            $field = substr($this->getKey(), strlen($parent->getKey()));
+            return strlen($field) > 1 && Str::startsWith($field, self::DELIMITER) &&
+                substr_count($field, self::DELIMITER) == 1;
         }
         return false;
     }
